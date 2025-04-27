@@ -16,7 +16,7 @@ PASSWORDS_TO_BRUTE_FORCE = [
     "e5f3ff26aa8075ce7513552a9af1882b4fbc2a47a3525000f6eb887ab9622207",
 ]
 
-BULK_SIZE = 50
+BULK_SIZE = 20
 
 
 def sha256_hash_str(to_hash: str) -> str:
@@ -27,7 +27,7 @@ def check_password(num_range: int) -> list[str]:
     passwords = []
     for num in range(num_range - BULK_SIZE, num_range):
         if num <= 9999999:
-            password = f"{num: 08}"
+            password = f"{num:08}"
         else:
             password = str(num)
         if sha256_hash_str(password) in PASSWORDS_TO_BRUTE_FORCE:
@@ -46,8 +46,8 @@ def brute_force_password() -> None:
             for password in passwords:
                 results.append(password)
                 print(f"{password} - {sha256_hash_str(password)}")
-                if len(results) == 10:
-                    break
+            if len(results) >= 10:
+                break
 
 
 if __name__ == "__main__":
