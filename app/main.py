@@ -16,7 +16,7 @@ PASSWORDS_TO_BRUTE_FORCE = [
     "e5f3ff26aa8075ce7513552a9af1882b4fbc2a47a3525000f6eb887ab9622207",
 ]
 
-BULK_SIZE = 20
+BULK_SIZE = 50
 
 
 def sha256_hash_str(to_hash: str) -> str:
@@ -41,7 +41,7 @@ def brute_force_password() -> None:
     results = []
     with ProcessPoolExecutor(multiprocessing.cpu_count() - 1) as executor:
         for passwords in executor.map(
-                check_password, num_range, chunksize=10000
+                check_password, num_range, chunksize=1000
         ):
             for password in passwords:
                 results.append(password)
